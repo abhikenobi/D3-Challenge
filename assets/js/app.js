@@ -35,6 +35,8 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     censusdata.forEach(data => {
         data.poverty = +data.poverty;
         data.income =  +data.income;
+        // State abbriviations
+        data.abbr = +data.abbr;
     });
 
     // Initial axis params
@@ -66,8 +68,8 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     .append("circle")
     .attr("cx", d => xLinearScale(d[xaxis]))
     .attr("cy", d => yLinearScale(d.poverty))
-    .attr("r", 20)
-    .attr("fill", "pink")
+    .attr("r", 15)
+    .attr("fill", "blue")
     .attr("opacity", ".5");
 
     // Create group for two x-axis labels
@@ -89,6 +91,19 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     .attr("dy", "1em")
     .classed("axis-text", true)
     .text("Poverty");
+
+    chartGroup.selectAll(null)
+    .data(censusdata)
+    .enter()
+    .append("text")
+    .attr("x", d => xLinearScale(d[xaxis]))
+    .attr("y", d => yLinearScale(d[yaxis]))
+    .text(d => d.abbr)
+    .attr("font-size", "10px")
+    .attr("text-anchor", "middle")
+    .attr("fill", "white");
+
+
 
 });
 
