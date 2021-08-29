@@ -99,10 +99,12 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     .append("text")
     .attr("x", d => xLinearScale(d[xaxis]))
     .attr("y", d => yLinearScale(d[yaxis]))
-    .text(d => d.abbr)
+    .text(function(d) {
+        return d.abbr;
+      })
     .attr("font-size", "10px")
     .attr("text-anchor", "middle")
-    .attr("fill", "white")
+    .attr("fill", "red")
     .classed("state-text", true);
 
 });
