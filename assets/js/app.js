@@ -108,6 +108,7 @@ d3.csv("assets/data/data.csv").then(censusdata => {
 });
 
 
+// https://www.d3-graph-gallery.com/graph/scatter_basic.html
 // , function(data) {
 
 //   // Add X axis
