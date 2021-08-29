@@ -72,10 +72,11 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     .attr("fill", "blue")
     .attr("opacity", ".5");
 
-    // Create group for two x-axis labels
+    // Create group for x-axis labels
     var labelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
+    // append x axis
     var incomeLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 20)
@@ -84,7 +85,7 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     .text("Income");
 
     // append y axis
-    chartGroup.append("text")
+    var povertyLabel = chartGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left)
     .attr("x", 0 - (height / 2))
@@ -92,7 +93,7 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     .classed("axis-text", true)
     .text("Poverty");
 
-    chartGroup.selectAll(null)
+    var stateabbr = chartGroup.append("g").selectAll(null)
     .data(censusdata)
     .enter()
     .append("text")
@@ -101,14 +102,10 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     .text(d => d.abbr)
     .attr("font-size", "10px")
     .attr("text-anchor", "middle")
-    .attr("fill", "white");
-
-
+    .attr("fill", "white")
+    .classed("state-text", true);
 
 });
-
-
-
 
 
 // , function(data) {
