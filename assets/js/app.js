@@ -82,7 +82,7 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     .attr("y", 20)
     .attr("value", "income") // value to grab for event listener
     .classed("active", true)
-    .text("Income");
+    .text("Median House Income ($)");
 
     // append y axis
     var povertyLabel = chartGroup.append("text")
@@ -91,7 +91,7 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .classed("axis-text", true)
-    .text("Poverty");
+    .text("Poverty Rate (%)");
 
     var stateabbr = chartGroup.append("g").selectAll(null)
     .data(censusdata)
