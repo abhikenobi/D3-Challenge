@@ -42,8 +42,54 @@ d3.csv("assets/data/data.csv").then(censusdata => {
     var yaxis = "poverty";
 
     // X and Y axis scales
-    var xScale = d3.scaleLinear().range([0, width]);
-    var yScale = d3.scaleLinear().range([height, 0]);
+    var xLinearScale = d3.scaleLinear().range([0, width]).domain([d3.min(censusdata, d => d.income)*0.8, d3.max(censusdata, d => d.income)*1.2]);
+    var yLinearScale = d3.scaleLinear().range([height, 0]).domain([0, d3.max(censusdata, d => d.poverty)]);
+
+    // Create initial axis functions
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
+
+    // append x axis
+    var xAxis = chartGroup.append("g")
+    .classed("x-axis", true)
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxis);
+
+    // append y axis
+    chartGroup.append("g")
+    .call(leftAxis);
+
+    // append initial circles
+    var circlesGroup = chartGroup.selectAll("circle")
+    .data(censusdata)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d[xaxis]))
+    .attr("cy", d => yLinearScale(d.poverty))
+    .attr("r", 20)
+    .attr("fill", "pink")
+    .attr("opacity", ".5");
+
+    // Create group for two x-axis labels
+    var labelsGroup = chartGroup.append("g")
+    .attr("transform", `translate(${width / 2}, ${height + 20})`);
+
+    var incomeLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 20)
+    .attr("value", "income") // value to grab for event listener
+    .classed("active", true)
+    .text("Income");
+
+    // append y axis
+    chartGroup.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .classed("axis-text", true)
+    .text("Poverty");
+
 });
 
 
